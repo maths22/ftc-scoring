@@ -1,0 +1,11 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<project version="4">
+  <component name="Encoding">
+    <file url="file://$PROJECT_DIR$" charset="UTF-8" />
+    <file url="file://$PROJECT_DIR$/ftc-scoring-data" charset="UTF-8" />
+    <file url="file://$PROJECT_DIR$/ftc-scoring-results" charset="UTF-8" />
+    <file url="file://$PROJECT_DIR$/ftc-scoring-season-vv" charset="UTF-8" />
+    <file url="file://$PROJECT_DIR$/ftc-scoring-server" charset="UTF-8" />
+    <file url="file://$PROJECT_DIR$/ftc-scoring-uploader" charset="UTF-8" />
+  </component>
+</project>

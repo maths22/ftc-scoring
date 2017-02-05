@@ -1,0 +1,55 @@
+<databaseChangeLog
+        xmlns="http://www.liquibase.org/xml/ns/dbchangelog"
+        xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+        xmlns:ext="http://www.liquibase.org/xml/ns/dbchangelog-ext"
+        xsi:schemaLocation="http://www.liquibase.org/xml/ns/dbchangelog http://www.liquibase.org/xml/ns/dbchangelog/dbchangelog-3.1.xsd
+        http://www.liquibase.org/xml/ns/dbchangelog-ext http://www.liquibase.org/xml/ns/dbchangelog/dbchangelog-ext.xsd">
+
+  <changeSet author="Jacob Burroughs" id="create-season_score_vv">
+  <createTable tableName="season_score_vv">
+    <column name="id" type="UUID">
+      <constraints primaryKey="true" nullable="false"/>
+    </column>
+    <column name="auto_beacons" type="INTEGER">
+      <constraints nullable="false"/>
+    </column>
+    <column name="driver_beacons" type="INTEGER">
+      <constraints nullable="false"/>
+    </column>
+    <column name="auto_cap_floor" type="BOOLEAN">
+      <constraints nullable="false"/>
+    </column>
+    <column name="driver_cap_position" type="VARCHAR(64)">
+      <constraints nullable="false"/>
+    </column>
+    <column name="auto_center_particles" type="INTEGER">
+      <constraints nullable="false"/>
+    </column>
+    <column name="auto_corner_particles" type="INTEGER">
+      <constraints nullable="false"/>
+    </column>
+    <column name="driver_center_particles" type="INTEGER">
+      <constraints nullable="false"/>
+    </column>
+    <column name="driver_corner_particles" type="INTEGER">
+      <constraints nullable="false"/>
+    </column>
+    <column name="r1_auto_pos" type="VARCHAR(64)">
+      <constraints nullable="false"/>
+    </column>
+    <column name="r2_auto_pos" type="VARCHAR(64)">
+      <constraints nullable="false"/>
+    </column>
+  </createTable>
+  </changeSet>
+
+  <changeSet author="Jacob Burroughs" id="season-add-vv">
+    <insert tableName="season">
+      <column name="id" value="5f1607da-174c-4252-b114-a5655ff6940c" />
+      <column name="name" value="Velocity Vortex" />
+      <column name="slug" value="vv" />
+      <column name="year" value="2016-2017" />
+    </insert>
+  </changeSet>
+
+</databaseChangeLog>

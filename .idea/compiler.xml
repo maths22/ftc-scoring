@@ -1,0 +1,25 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<project version="4">
+  <component name="CompilerConfiguration">
+    <annotationProcessing>
+      <profile name="Maven default annotation processors profile" enabled="true">
+        <sourceOutputDir name="target/generated-sources/annotations" />
+        <sourceTestOutputDir name="target/generated-test-sources/test-annotations" />
+        <outputRelativeToContentRoot value="true" />
+        <module name="ftc-scoring-data" />
+        <module name="ftc-scoring-results" />
+        <module name="ftc-scoring-season-vv" />
+        <module name="ftc-scoring-server" />
+        <module name="ftc-scoring-uploader" />
+      </profile>
+    </annotationProcessing>
+    <bytecodeTargetLevel>
+      <module name="ftc-scoring" target="1.8" />
+      <module name="ftc-scoring-data" target="1.8" />
+      <module name="ftc-scoring-results" target="1.8" />
+      <module name="ftc-scoring-season-vv" target="1.8" />
+      <module name="ftc-scoring-server" target="1.8" />
+      <module name="ftc-scoring-uploader" target="1.8" />
+    </bytecodeTargetLevel>
+  </component>
+</project>

@@ -1,0 +1,13 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<project version="4">
+  <component name="ProjectModuleManager">
+    <modules>
+      <module fileurl="file://$PROJECT_DIR$/ftc-scoring.iml" filepath="$PROJECT_DIR$/ftc-scoring.iml" />
+      <module fileurl="file://$PROJECT_DIR$/ftc-scoring-data/ftc-scoring-data.iml" filepath="$PROJECT_DIR$/ftc-scoring-data/ftc-scoring-data.iml" />
+      <module fileurl="file://$PROJECT_DIR$/ftc-scoring-results/ftc-scoring-results.iml" filepath="$PROJECT_DIR$/ftc-scoring-results/ftc-scoring-results.iml" />
+      <module fileurl="file://$PROJECT_DIR$/ftc-scoring-season-vv/ftc-scoring-season-vv.iml" filepath="$PROJECT_DIR$/ftc-scoring-season-vv/ftc-scoring-season-vv.iml" />
+      <module fileurl="file://$PROJECT_DIR$/ftc-scoring-server/ftc-scoring-server.iml" filepath="$PROJECT_DIR$/ftc-scoring-server/ftc-scoring-server.iml" />
+      <module fileurl="file://$PROJECT_DIR$/ftc-scoring-uploader/ftc-scoring-uploader.iml" filepath="$PROJECT_DIR$/ftc-scoring-uploader/ftc-scoring-uploader.iml" />
+    </modules>
+  </component>
+</project>

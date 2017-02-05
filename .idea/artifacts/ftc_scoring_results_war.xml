@@ -1,0 +1,8 @@
+<component name="ArtifactManager">
+  <artifact type="war" name="ftc-scoring-results:war">
+    <output-path>$PROJECT_DIR$/ftc-scoring-results/target</output-path>
+    <root id="archive" name="ftc-scoring-results-0.0.1-SNAPSHOT.war">
+      <element id="artifact" artifact-name="ftc-scoring-results:war exploded" />
+    </root>
+  </artifact>
+</component>

@@ -1,0 +1,457 @@
+<databaseChangeLog
+        xmlns="http://www.liquibase.org/xml/ns/dbchangelog"
+        xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+        xmlns:ext="http://www.liquibase.org/xml/ns/dbchangelog-ext"
+        xsi:schemaLocation="http://www.liquibase.org/xml/ns/dbchangelog http://www.liquibase.org/xml/ns/dbchangelog/dbchangelog-3.1.xsd
+        http://www.liquibase.org/xml/ns/dbchangelog-ext http://www.liquibase.org/xml/ns/dbchangelog/dbchangelog-ext.xsd">
+
+  <changeSet author="Jacob Burroughs" id="1">
+  <createTable tableName="region">
+    <column name="id" type="UUID">
+      <constraints primaryKey="true" nullable="false"/>
+    </column>
+    <column name="name" type="VARCHAR(45)">
+      <constraints nullable="false"/>
+    </column>
+  </createTable>
+  </changeSet>
+
+  <changeSet author="Jacob Burroughs" id="2">
+  <createTable tableName="team">
+    <column name="number" type="INTEGER">
+      <constraints primaryKey="true" nullable="false"/>
+    </column>
+    <column name="name" type="VARCHAR(255)">
+      <constraints nullable="false"/>
+    </column>
+    <column name="school" type="VARCHAR(255)">
+      <constraints nullable="false"/>
+    </column>
+    <column name="city" type="VARCHAR(255)">
+      <constraints nullable="false"/>
+    </column>
+    <column name="state" type="VARCHAR(255)">
+      <constraints nullable="false"/>
+    </column>
+    <column name="country" type="VARCHAR(255)">
+      <constraints nullable="false"/>
+    </column>
+  </createTable>
+  </changeSet>
+
+  <changeSet author="Jacob Burroughs" id="5">
+  <createTable tableName="season">
+    <column name="id" type="UUID">
+      <constraints primaryKey="true" nullable="false"/>
+    </column>
+    <column name="name" type="VARCHAR(45)">
+      <constraints nullable="false"/>
+    </column>
+    <column name="slug" type="VARCHAR(45)">
+      <constraints nullable="false"/>
+    </column>
+    <column name="year" type="VARCHAR(10)">
+      <constraints nullable="false"/>
+    </column>
+  </createTable>
+  </changeSet>
+
+  <changeSet author="Jacob Burroughs" id="7">
+  <createTable tableName="score">
+    <column name="id" type="UUID">
+      <constraints primaryKey="true" nullable="false"/>
+    </column>
+    <column name="major_penalties" type="INTEGER">
+      <constraints nullable="false"/>
+    </column>
+    <column name="minor_penalties" type="INTEGER">
+      <constraints nullable="false"/>
+    </column>
+    <column name="season_score_type" type="VARCHAR(64)">
+      <constraints nullable="false"/>
+    </column>
+  </createTable>
+  </changeSet>
+
+  <changeSet author="Jacob Burroughs" id="9">
+  <createTable tableName="league">
+    <column name="id" type="UUID">
+      <constraints primaryKey="true" nullable="false"/>
+    </column>
+    <column name="name" type="VARCHAR(255)">
+      <constraints nullable="false"/>
+    </column>
+    <column name="season" type="UUID">
+      <constraints nullable="false"/>
+    </column>
+    <column name="region" type="UUID">
+      <constraints nullable="false"/>
+    </column>
+  </createTable>
+  </changeSet>
+
+  <changeSet author="Jacob Burroughs" id="10">
+  <createIndex tableName="league" indexName="FK_EVENT_LEAGUE1_INDEX_8" unique="true">
+    <column name="id"/>
+  </createIndex>
+  </changeSet>
+
+  <changeSet author="Jacob Burroughs" id="11">
+  <createIndex tableName="league" indexName="FK_LEAGUE_SEASON1_INDEX_8">
+    <column name="season"/>
+  </createIndex>
+  </changeSet>
+
+  <changeSet author="Jacob Burroughs" id="12">
+  <createTable tableName="league_division">
+    <column name="id" type="UUID">
+      <constraints primaryKey="true" nullable="false"/>
+    </column>
+    <column name="name" type="VARCHAR(255)">
+      <constraints nullable="false"/>
+    </column>
+    <column name="league" type="UUID">
+      <constraints nullable="false"/>
+    </column>
+  </createTable>
+  </changeSet>
+
+  <changeSet author="Jacob Burroughs" id="13">
+  <createTable tableName="league_team">
+    <column name="team_id" type="INTEGER">
+      <constraints nullable="false"/>
+    </column>
+    <column name="league_division_id" type="UUID">
+      <constraints nullable="false"/>
+    </column>
+  </createTable>
+  </changeSet>
+
+  <changeSet author="Jacob Burroughs" id="14">
+  <createTable tableName="event_type">
+    <column name="id" type="UUID">
+      <constraints primaryKey="true" nullable="false"/>
+    </column>
+    <column name="name" type="VARCHAR(45)">
+      <constraints nullable="false"/>
+    </column>
+  </createTable>
+  </changeSet>
+
+  <changeSet author="Jacob Burroughs" id="16">
+  <createTable tableName="event">
+    <column name="id" type="UUID">
+      <constraints primaryKey="true" nullable="false"/>
+    </column>
+    <column name="name" type="VARCHAR(255)">
+      <constraints nullable="false"/>
+    </column>
+    <column name="evt_key" type="VARCHAR(255)">
+      <constraints nullable="false"/>
+    </column>
+    <column name="start_date" type="DATE">
+      <constraints nullable="false"/>
+    </column>
+    <column name="end_date" type="DATE">
+      <constraints nullable="false"/>
+    </column>
+    <column name="type" type="UUID">
+      <constraints nullable="false"/>
+    </column>
+    <column name="league_division" type="UUID" defaultValue="NULL"/>
+    <column name="season" type="UUID">
+      <constraints nullable="false"/>
+    </column>
+    <column name="region" type="UUID">
+      <constraints nullable="false"/>
+    </column>
+  </createTable>
+  </changeSet>
+
+  <changeSet author="Jacob Burroughs" id="18">
+  <createIndex tableName="event" indexName="FK_EVENTS_EVENT_TYPES_INDEX_3">
+    <column name="type"/>
+  </createIndex>
+  </changeSet>
+
+  <changeSet author="Jacob Burroughs" id="19">
+  <createIndex tableName="event" indexName="FK_EVENT_LEAGUE1_INDEX_3">
+    <column name="league_division"/>
+  </createIndex>
+  </changeSet>
+
+  <changeSet author="Jacob Burroughs" id="20">
+  <createTable tableName="division">
+    <column name="id" type="UUID">
+      <constraints primaryKey="true" nullable="false"/>
+    </column>
+    <column name="number" type="INTEGER">
+      <constraints nullable="false"/>
+    </column>
+    <column name="name" type="VARCHAR(255)">
+      <constraints nullable="false"/>
+    </column>
+    <column name="event" type="UUID">
+      <constraints nullable="false"/>
+    </column>
+  </createTable>
+  </changeSet>
+
+  <changeSet author="Jacob Burroughs" id="22">
+  <createIndex tableName="division" indexName="FK_DIVISIONS_EVENTS1_INDEX_4">
+    <column name="event"/>
+  </createIndex>
+  </changeSet>
+
+  <changeSet author="Jacob Burroughs" id="23">
+  <createTable tableName="team_event_assignment">
+    <column name="id" type="UUID">
+      <constraints primaryKey="true" nullable="false"/>
+    </column>
+    <column name="team" type="INTEGER">
+      <constraints nullable="false"/>
+    </column>
+    <column name="division" type="UUID">
+      <constraints nullable="false"/>
+    </column>
+  </createTable>
+  </changeSet>
+
+  <changeSet author="Jacob Burroughs" id="24">
+  <createIndex tableName="team_event_assignment" indexName="FK_TEAMS_DIVISIONS_DIVISIONS1_INDEX_8">
+    <column name="division"/>
+  </createIndex>
+  </changeSet>
+
+  <changeSet author="Jacob Burroughs" id="25">
+  <createIndex tableName="team_event_assignment" indexName="FK_TEAMS_DIVISIONS_TEAMS1_INDEX_8">
+    <column name="team"/>
+  </createIndex>
+  </changeSet>
+
+  <changeSet author="Jacob Burroughs" id="26">
+  <createTable tableName="alliance">
+    <column name="id" type="UUID">
+      <constraints primaryKey="true" nullable="false"/>
+    </column>
+    <column name="seed" type="INTEGER">
+      <constraints nullable="false"/>
+    </column>
+    <column name="elimination" type="BOOLEAN">
+      <constraints nullable="false"/>
+    </column>
+    <column name="division" type="UUID">
+      <constraints nullable="false"/>
+    </column>
+  </createTable>
+  </changeSet>
+
+  <changeSet author="Jacob Burroughs" id="28">
+  <createIndex tableName="alliance" indexName="FK_ALLIANCE_DIVISION1_INDEX_9">
+    <column name="division"/>
+  </createIndex>
+  </changeSet>
+
+  <changeSet author="Jacob Burroughs" id="29">
+  <createTable tableName="match">
+    <column name="id" type="UUID">
+      <constraints primaryKey="true" nullable="false"/>
+    </column>
+    <column name="type" type="VARCHAR(64)">
+      <constraints nullable="false"/>
+    </column>
+    <column name="number" type="INTEGER">
+      <constraints nullable="false"/>
+    </column>
+    <column name="division" type="UUID">
+      <constraints nullable="false"/>
+    </column>
+    <column name="red_alliance" type="UUID">
+      <constraints nullable="false"/>
+    </column>
+    <column name="blue_alliance" type="UUID">
+      <constraints nullable="false"/>
+    </column>
+    <column name="red_score" type="UUID">
+      <constraints nullable="false"/>
+    </column>
+    <column name="blue_score" type="UUID">
+      <constraints nullable="false"/>
+    </column>
+    <column name="scored" type="BOOLEAN">
+      <constraints nullable="false"/>
+    </column>
+  </createTable>
+  </changeSet>
+
+  <changeSet author="Jacob Burroughs" id="31">
+  <createIndex tableName="match" indexName="FK_MATCH_ALLIANCE1_INDEX_C">
+    <column name="red_alliance"/>
+  </createIndex>
+  </changeSet>
+
+  <changeSet author="Jacob Burroughs" id="32">
+  <createIndex tableName="match" indexName="FK_MATCH_ALLIANCE2_INDEX_C">
+    <column name="blue_alliance"/>
+  </createIndex>
+  </changeSet>
+
+  <changeSet author="Jacob Burroughs" id="33">
+  <createIndex tableName="match" indexName="FK_MATCH_DIVISION1_INDEX_C">
+    <column name="division"/>
+  </createIndex>
+  </changeSet>
+
+  <changeSet author="Jacob Burroughs" id="34">
+  <createIndex tableName="match" indexName="FK_MATCH_SCORE1_INDEX_C">
+    <column name="red_score"/>
+  </createIndex>
+  </changeSet>
+
+  <changeSet author="Jacob Burroughs" id="35">
+  <createIndex tableName="match" indexName="FK_MATCH_SCORE2_INDEX_C">
+    <column name="blue_score"/>
+  </createIndex>
+  </changeSet>
+
+  <changeSet author="Jacob Burroughs" id="36">
+  <createTable tableName="match_event">
+    <column name="id" type="UUID">
+      <constraints primaryKey="true" nullable="false"/>
+    </column>
+    <column name="type" type="VARCHAR(64)">
+      <constraints nullable="false"/>
+    </column>
+    <column name="match" type="UUID">
+      <constraints nullable="false"/>
+    </column>
+    <column name="team" type="UUID">
+      <constraints nullable="false"/>
+    </column>
+  </createTable>
+  </changeSet>
+
+  <changeSet author="Jacob Burroughs" id="38">
+  <createIndex tableName="match_event" indexName="FK_MATCH_EVENT_MATCH1_INDEX_2">
+    <column name="match"/>
+  </createIndex>
+  </changeSet>
+
+  <changeSet author="Jacob Burroughs" id="39">
+  <createIndex tableName="match_event" indexName="FK_MATCH_EVENT_TEAM_EVENT_ASSIGNMENT1_INDEX_2">
+    <column name="team"/>
+  </createIndex>
+  </changeSet>
+
+  <changeSet author="Jacob Burroughs" id="40">
+  <createTable tableName="alliance_team">
+    <column name="team_event_assignment_id" type="UUID">
+      <constraints nullable="false"/>
+    </column>
+    <column name="alliance_id" type="UUID">
+      <constraints nullable="false"/>
+    </column>
+    <column name="team_index" type="INTEGER">
+      <constraints nullable="false"/>
+    </column>
+  </createTable>
+  </changeSet>
+
+  <changeSet author="Jacob Burroughs" id="41">
+  <createIndex tableName="alliance_team" indexName="PRIMARY_KEY_54" unique="true">
+    <column name="team_event_assignment_id"/>
+    <column name="alliance_id"/>
+  </createIndex>
+  </changeSet>
+
+  <changeSet author="Jacob Burroughs" id="42">
+  <createIndex tableName="alliance_team" indexName="FK_TEAM_EVENT_ASSIGNMENT_HAS_ALLIANCE_ALLIANCE1_INDEX_5">
+    <column name="alliance_id"/>
+  </createIndex>
+  </changeSet>
+
+  <changeSet author="Jacob Burroughs" id="43">
+  <addForeignKeyConstraint baseTableName="league" constraintName="REGION_LEAGUE_fk" baseColumnNames="region" referencedTableName="region" referencedColumnNames="id"/>
+  </changeSet>
+
+  <changeSet author="Jacob Burroughs" id="44">
+  <addForeignKeyConstraint baseTableName="event" constraintName="REGION_EVENT_fk" baseColumnNames="region" referencedTableName="region" referencedColumnNames="id"/>
+  </changeSet>
+
+  <changeSet author="Jacob Burroughs" id="45">
+  <addForeignKeyConstraint baseTableName="team_event_assignment" constraintName="FK_TEAMS_DIVISIONS_TEAMS1" baseColumnNames="team" referencedTableName="team" referencedColumnNames="number" onDelete="RESTRICT" onUpdate="RESTRICT"/>
+  </changeSet>
+
+  <changeSet author="Jacob Burroughs" id="46">
+  <addForeignKeyConstraint baseTableName="league_team" constraintName="team_league_team_fk" baseColumnNames="team_id" referencedTableName="team" referencedColumnNames="number"/>
+  </changeSet>
+
+  <changeSet author="Jacob Burroughs" id="47">
+  <addForeignKeyConstraint baseTableName="league" constraintName="FK_LEAGUE_SEASON1" baseColumnNames="season" referencedTableName="season" referencedColumnNames="id" onDelete="RESTRICT" onUpdate="RESTRICT"/>
+  </changeSet>
+
+  <changeSet author="Jacob Burroughs" id="48">
+  <addForeignKeyConstraint baseTableName="event" constraintName="SEASON_EVENT_fk" baseColumnNames="season" referencedTableName="season" referencedColumnNames="id"/>
+  </changeSet>
+
+  <changeSet author="Jacob Burroughs" id="49">
+  <addForeignKeyConstraint baseTableName="match" constraintName="FK_MATCH_SCORE1" baseColumnNames="red_score" referencedTableName="score" referencedColumnNames="id" onDelete="RESTRICT" onUpdate="RESTRICT"/>
+  </changeSet>
+
+  <changeSet author="Jacob Burroughs" id="50">
+  <addForeignKeyConstraint baseTableName="match" constraintName="FK_MATCH_SCORE2" baseColumnNames="blue_score" referencedTableName="score" referencedColumnNames="id" onDelete="RESTRICT" onUpdate="RESTRICT"/>
+  </changeSet>
+
+  <changeSet author="Jacob Burroughs" id="51">
+  <addForeignKeyConstraint baseTableName="league_division" constraintName="LEAGUE_LEAGUE_DIVISION_fk" baseColumnNames="league" referencedTableName="league" referencedColumnNames="id"/>
+  </changeSet>
+
+  <changeSet author="Jacob Burroughs" id="52">
+  <addForeignKeyConstraint baseTableName="event" constraintName="LEAGUE_DIVISION_EVENT_fk" baseColumnNames="league_division" referencedTableName="league_division" referencedColumnNames="id"/>
+  </changeSet>
+
+  <changeSet author="Jacob Burroughs" id="53">
+  <addForeignKeyConstraint baseTableName="league_team" constraintName="league_division_league_team_fk" baseColumnNames="league_division_id" referencedTableName="league_division" referencedColumnNames="id"/>
+  </changeSet>
+
+  <changeSet author="Jacob Burroughs" id="54">
+  <addForeignKeyConstraint baseTableName="event" constraintName="FK_EVENTS_EVENT_TYPES" baseColumnNames="type" referencedTableName="event_type" referencedColumnNames="id" onDelete="RESTRICT" onUpdate="RESTRICT"/>
+  </changeSet>
+
+  <changeSet author="Jacob Burroughs" id="55">
+  <addForeignKeyConstraint baseTableName="division" constraintName="FK_DIVISIONS_EVENTS1" baseColumnNames="event" referencedTableName="event" referencedColumnNames="id" onDelete="CASCADE" onUpdate="CASCADE"/>
+  </changeSet>
+
+  <changeSet author="Jacob Burroughs" id="56">
+  <addForeignKeyConstraint baseTableName="alliance" constraintName="FK_ALLIANCE_DIVISION1" baseColumnNames="division" referencedTableName="division" referencedColumnNames="id" onDelete="CASCADE" onUpdate="CASCADE"/>
+  </changeSet>
+
+  <changeSet author="Jacob Burroughs" id="57">
+  <addForeignKeyConstraint baseTableName="team_event_assignment" constraintName="division_team_event_assignment_fk" baseColumnNames="division" referencedTableName="division" referencedColumnNames="id"/>
+  </changeSet>
+
+  <changeSet author="Jacob Burroughs" id="58">
+  <addForeignKeyConstraint baseTableName="alliance_team" constraintName="FK_TEAM_EVENT_ASSIGNMENT_HAS_ALLIANCE_TEAM_EVENT_ASSIGNMENT1" baseColumnNames="team_event_assignment_id" referencedTableName="team_event_assignment" referencedColumnNames="id" onDelete="CASCADE" onUpdate="CASCADE"/>
+  </changeSet>
+
+  <changeSet author="Jacob Burroughs" id="59">
+  <addForeignKeyConstraint baseTableName="alliance_team" constraintName="FK_TEAM_EVENT_ASSIGNMENT_HAS_ALLIANCE_ALLIANCE1" baseColumnNames="alliance_id" referencedTableName="alliance" referencedColumnNames="id" onDelete="CASCADE" onUpdate="CASCADE"/>
+  </changeSet>
+
+  <changeSet author="Jacob Burroughs" id="60">
+  <addForeignKeyConstraint baseTableName="match" constraintName="FK_MATCH_ALLIANCE1" baseColumnNames="red_alliance" referencedTableName="alliance" referencedColumnNames="id" onDelete="RESTRICT" onUpdate="RESTRICT"/>
+  </changeSet>
+
+  <changeSet author="Jacob Burroughs" id="61">
+  <addForeignKeyConstraint baseTableName="match" constraintName="FK_MATCH_ALLIANCE2" baseColumnNames="blue_alliance" referencedTableName="alliance" referencedColumnNames="id" onDelete="RESTRICT" onUpdate="RESTRICT"/>
+  </changeSet>
+
+  <changeSet author="Jacob Burroughs" id="62">
+  <addForeignKeyConstraint baseTableName="match_event" constraintName="FK_MATCH_EVENT_MATCH1" baseColumnNames="match" referencedTableName="match" referencedColumnNames="id" onDelete="CASCADE" onUpdate="CASCADE"/>
+  </changeSet>
+
+  <include file="db/migration/event_types.changelog.xml" />
+  <include file="db/migration/regions.changelog.xml" />
+
+  <include file="db/migration/seasons/season_vv.changelog.xml" />
+</databaseChangeLog>

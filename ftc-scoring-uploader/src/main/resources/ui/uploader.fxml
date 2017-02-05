@@ -1,0 +1,24 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import javafx.scene.control.Button?>
+<?import javafx.scene.control.ChoiceBox?>
+<?import javafx.scene.control.Label?>
+<?import javafx.scene.control.PasswordField?>
+<?import javafx.scene.control.TextField?>
+<?import javafx.scene.layout.Pane?>
+
+<Pane fx:id="root" prefHeight="200.0" prefWidth="428.0" xmlns="http://javafx.com/javafx/8.0.112" xmlns:fx="http://javafx.com/fxml/1" fx:controller="com.maths22.ftc.ui.ApplicationController">
+    <children>
+        <Button fx:id="myButton" layoutX="355.0" layoutY="10.0" mnemonicParsing="false" onAction="#onButtonPress" text="Browse..." />
+      <Label layoutX="14.0" layoutY="14.0" text="Scoring System Path" />
+      <TextField fx:id="scoringSystemPathField" layoutX="129.0" layoutY="10.0" prefHeight="25.0" prefWidth="219.0" />
+      <Button fx:id="processorButton" layoutX="14.0" layoutY="161.0" mnemonicParsing="false" onAction="#startImporting" text="Start" />
+      <Label layoutX="14.0" layoutY="44.0" text="Event Key" />
+      <TextField fx:id="eventKeyField" layoutX="129.0" layoutY="40.0" prefHeight="25.0" prefWidth="219.0" promptText="sample-evt-key" />
+      <ChoiceBox fx:id="seasonSelector" layoutX="129.0" layoutY="106.0" prefHeight="25.0" prefWidth="219.0" />
+      <Button fx:id="stopButton" layoutX="62.0" layoutY="161.0" mnemonicParsing="false" onAction="#stopImporting" text="Stop" />
+      <PasswordField fx:id="passwordField" layoutX="129.0" layoutY="75.0" prefHeight="25.0" prefWidth="219.0" promptText="password" />
+      <Label layoutX="14.0" layoutY="79.0" text="Password" />
+      <Label layoutX="15.0" layoutY="110.0" text="Season" />
+    </children>
+</Pane>
