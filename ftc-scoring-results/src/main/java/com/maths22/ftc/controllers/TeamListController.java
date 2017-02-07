@@ -3,10 +3,11 @@ package com.maths22.ftc.controllers;
 import com.maths22.ftc.entities.Division;
 import com.maths22.ftc.entities.Event;
 import com.maths22.ftc.entities.Match;
+import com.maths22.ftc.entities.TeamEventAssignment;
 import com.maths22.ftc.enums.MatchType;
-import com.maths22.ftc.ranking.Ranking;
 import com.maths22.ftc.repositories.DivisionRepository;
 import com.maths22.ftc.repositories.EventRepository;
+import com.maths22.ftc.repositories.TeamEventAssignmentRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.stereotype.Controller;
@@ -22,43 +23,36 @@ import java.util.stream.Collectors;
  * Created by Jacob on 2/4/2017.
  */
 @Controller
-public class MatchResultsController {
+public class TeamListController {
     @Autowired
     private  EventRepository eventRepository;
 
     @Autowired
     private DivisionRepository divisionRepository;
 
-    @RequestMapping("/{eventKey}/matchResults")
-    public String matchResultsByEvent(@PathVariable String eventKey, Model model) {
+    @Autowired
+    private TeamEventAssignmentRepository teamEventAssignmentRepository;
 
+    @RequestMapping("/{eventKey}/teamList")
+    public String matchListByEvent(@PathVariable String eventKey, Model model) {
         Optional<Event> event = eventRepository.findByKey(eventKey);
 
         if(!event.isPresent()) {
-            throw new MatchResultsController.ResourceNotFoundException("Invalid eventKey " + eventKey);
+            throw new TeamListController.ResourceNotFoundException("Invalid eventKey " + eventKey);
         }
 
         Collection<Division> divisions = divisionRepository.getByEventId(event.get().getId());
 
-        model.addAttribute("divisions", divisions);
-
-        return "matches/results";
-    }
-
-    @RequestMapping("/{eventKey}/matchResultsDetails")
-    public String matchResultsDetailsByEvent(@PathVariable String eventKey, Model model) {
-
-        Optional<Event> event = eventRepository.findByKey(eventKey);
-
-        if(!event.isPresent()) {
-            throw new MatchResultsController.ResourceNotFoundException("Invalid eventKey " + eventKey);
+        Map<Division, List<TeamEventAssignment>> teams = new HashMap<>();
+        for(Division div : divisions) {
+            List<TeamEventAssignment> teamList = teamEventAssignmentRepository.findByDivisionId(div.getId());
+            teamList.sort(Comparator.comparing(ta -> ta.getTeam().getNumber()));
+            teams.put(div, teamList);
         }
-
-        Collection<Division> divisions = divisionRepository.getByEventId(event.get().getId());
-
         model.addAttribute("divisions", divisions);
+        model.addAttribute("teams", teams);
 
-        return "matches/resultsDetails";
+        return "event/teamList";
     }
 
     @ResponseStatus(value = HttpStatus.NOT_FOUND)

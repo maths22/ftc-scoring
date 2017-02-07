@@ -1,0 +1,26 @@
+.matchResult-R {
+    background: #FF4444;
+}
+.matchResult-B {
+    background: #44AAFF;
+}
+.matchResult-T {
+    /*TODO: color ties?*/
+}
+
+.matchResults {
+    text-align: center;
+}
+
+.matchResults tbody>tr>td {
+    vertical-align: middle;
+}
+
+body {
+    padding-top: 70px;
+}
+
+td, th {
+    text-align: center;
+
+}

@@ -18,6 +18,10 @@ public class Ranking implements Comparable<Ranking> {
 
     private final List<Integer> sortedMatchScores;
 
+    public Ranking(Team team) {
+        this(team, new ArrayList<>(), 0, 0);
+    }
+
     public Ranking(Team team, List<Integer> matchScores, int qp, int rp) {
         this.team = team;
         this.matchScores = matchScores;

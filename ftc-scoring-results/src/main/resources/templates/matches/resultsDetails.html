@@ -1,0 +1,114 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+        <meta charset="utf-8" />
+        <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+        <meta name="viewport" content="width=device-width, initial-scale=1" />
+        <!-- The above 3 meta tags *must* come first in the head; any other head content must come *after* these tags -->
+        <title>Match Results</title>
+
+        <!-- Bootstrap -->
+        <link th:href="@{/css/bootstrap.min.css}" rel="stylesheet" />
+        <link th:href="@{/css/bootstrap-datepicker3.min.css}" rel="stylesheet" />
+
+        <link th:href="@{/css/style.css}" rel="stylesheet" />
+
+        <!-- HTML5 shim and Respond.js for IE8 support of HTML5 elements and media queries -->
+        <!-- WARNING: Respond.js doesn't work if you view the page via file:// -->
+        <!--[if lt IE 9]>
+        <script src="https://oss.maxcdn.com/html5shiv/3.7.3/html5shiv.min.js"></script>
+        <script src="https://oss.maxcdn.com/respond/1.4.2/respond.min.js"></script>
+        <![endif]-->
+</head>
+<body>
+<div class="container">
+        <div th:replace="fragments/header :: header">
+        </div>
+
+        <div th:each="division, iterStat : ${divisions}">
+        <h3 th:text="${division.name}"></h3>
+        <table class="table matchResults">
+                <thead>
+                <tr>
+                        <th></th>
+                        <th></th>
+                        <th></th>
+                        <th></th>
+                        <th colspan="6">Red Scores</th>
+                        <th colspan="6">Blue Scores</th>
+                </tr>
+                <tr>
+                        <th>Match</th>
+                        <th>Result</th>
+                        <th>Red Teams</th>
+                        <th>Blue Teams</th>
+                        <th>Tot</th>
+                        <th>Auto</th>
+                        <th>AutoB</th>
+                        <th>Tele</th>
+                        <th>EndG</th>
+                        <th>Pen</th>
+                        <th>Tot</th>
+                        <th>Auto</th>
+                        <th>AutoB</th>
+                        <th>Tele</th>
+                        <th>EndG</th>
+                        <th>Pen</th>
+                </tr>
+                </thead>
+                <tbody>
+                <tr th:each="match, iterStat : ${division.matches}">
+                        <td th:text="${match.numberString()}"></td>
+                        <td th:if="${match.scored}" th:classappend="${&quot;matchResult-&quot; + match.computeWinningAlliance()}" th:text="${match.computeRedFinalScore() + '-' + match.computeBlueFinalScore() + ' ' + match.computeWinningAlliance()}"></td>
+                        <td th:if="${!match.scored}"></td>
+                        <td>
+                                <th:block th:each="ta : ${match.redAlliance.teams}" th:inline="text">
+                                        [[${ta.team.number}]]
+                                </th:block>
+                        </td>
+                        <td>
+                                <th:block th:each="ta : ${match.blueAlliance.teams}" th:inline="text">
+                                        [[${ta.team.number}]]
+                                </th:block>
+                        </td>
+
+                        <th:block th:if="${match.scored}">
+                                <td th:text="${match.computeRedFinalScore()}"></td>
+                                <td th:text="${match.redScore.computeAutoScore()}"></td>
+                                <td th:text="${match.redScore.computeAutoBonusScore()}"></td>
+                                <td th:text="${match.redScore.computeDriverScore()}"></td>
+                                <td th:text="${match.redScore.computeEndgameScore()}"></td>
+                                <td th:text="${match.blueScore.computePenaltyScore()}"></td>
+                        </th:block>
+                        <th:block th:if="${!match.scored}">
+                                <td></td>
+                                <td></td>
+                                <td></td>
+                                <td></td>
+                                <td></td>
+                                <td></td>
+                        </th:block>
+
+                        <th:block th:if="${match.scored}">
+                                <td th:text="${match.computeBlueFinalScore()}"></td>
+                                <td th:text="${match.blueScore.computeAutoScore()}"></td>
+                                <td th:text="${match.blueScore.computeAutoBonusScore()}"></td>
+                                <td th:text="${match.blueScore.computeDriverScore()}"></td>
+                                <td th:text="${match.blueScore.computeEndgameScore()}"></td>
+                                <td th:text="${match.redScore.computePenaltyScore()}"></td>
+                        </th:block>
+                        <th:block th:if="${!match.scored}">
+                                <td></td>
+                                <td></td>
+                                <td></td>
+                                <td></td>
+                                <td></td>
+                                <td></td>
+                        </th:block>
+                </tr>
+                </tbody>
+        </table>
+        </div>
+</div>
+</body>
+</html>

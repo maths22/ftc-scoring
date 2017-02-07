@@ -15,5 +15,6 @@ import java.util.UUID;
 public interface TeamEventAssignmentRepository extends CrudRepository<TeamEventAssignment, UUID> {
     Optional<TeamEventAssignment> findByDivisionIdAndTeamNumber(UUID divisionId, int team);
 
+
     List<TeamEventAssignment> findByDivisionId(UUID divisionId);
 }

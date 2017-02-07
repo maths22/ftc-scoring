@@ -30,22 +30,25 @@
         <table class="table matchResults">
                 <thead>
                 <tr>
-                        <th>Match</th>
-                        <th>Result</th>
-                        <th>Red</th>
-                        <th>Blue</th>
+                        <th>Rank</th>
+                        <th>Number</th>
+                        <th>Name</th>
+                        <th>QP</th>
+                        <th>RP</th>
+                        <th>High Score</th>
+                        <th>Matches Played</th>
                 </tr>
                 </thead>
                 <tbody>
-                <th:block th:each="match, iterStat : ${division.matches}">
-                <tr th:each="i : ${#numbers.sequence( 0, match.redAlliance.teams.size() - 1)}">
-                        <td th:if="${i == 0}" th:rowspan="${match.redAlliance.teams.size()}" th:text="${match.numberString()}"></td>
-                        <td th:if="${i == 0 &amp;&amp; match.scored}" th:rowspan="${match.redAlliance.teams.size()}" th:classappend="${&quot;matchResult-&quot; + match.computeWinningAlliance()}" th:text="${match.computeRedFinalScore() + '-' + match.computeBlueFinalScore() + ' ' + match.computeWinningAlliance()}"></td>
-                        <td th:if="${i == 0 &amp;&amp; !match.scored}" th:rowspan="${match.redAlliance.teams.size()}"></td>
-                        <td th:text="${match.redAlliance.teams[i].team.number}"></td>
-                        <td th:text="${match.blueAlliance.teams[i].team.number}"></td>
+                <tr th:each="ranking, iterStat : ${rankings.get(division)}">
+                        <td th:text="${iterStat.count}"></td>
+                        <td th:text="${ranking.team.number}"></td>
+                        <td th:text="${ranking.team.name}"></td>
+                        <td th:text="${ranking.qp}"></td>
+                        <td th:text="${ranking.rp}"></td>
+                        <td th:text="${ranking.getSortedMatchScores().size() > 0 ? ranking.getSortedMatchScores().get(0) : '-'}"></td>
+                        <td th:text="${ranking.getSortedMatchScores().size()}"></td>
                 </tr>
-                </th:block>
                 </tbody>
         </table>
         </div>

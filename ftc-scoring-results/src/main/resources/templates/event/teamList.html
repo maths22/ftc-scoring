@@ -30,22 +30,23 @@
         <table class="table matchResults">
                 <thead>
                 <tr>
-                        <th>Match</th>
-                        <th>Result</th>
-                        <th>Red</th>
-                        <th>Blue</th>
+                        <th>Team #</th>
+                        <th>Name</th>
+                        <th>School</th>
+                        <th>City</th>
+                        <th>State</th>
+                        <th>Country</th>
                 </tr>
                 </thead>
                 <tbody>
-                <th:block th:each="match, iterStat : ${division.matches}">
-                <tr th:each="i : ${#numbers.sequence( 0, match.redAlliance.teams.size() - 1)}">
-                        <td th:if="${i == 0}" th:rowspan="${match.redAlliance.teams.size()}" th:text="${match.numberString()}"></td>
-                        <td th:if="${i == 0 &amp;&amp; match.scored}" th:rowspan="${match.redAlliance.teams.size()}" th:classappend="${&quot;matchResult-&quot; + match.computeWinningAlliance()}" th:text="${match.computeRedFinalScore() + '-' + match.computeBlueFinalScore() + ' ' + match.computeWinningAlliance()}"></td>
-                        <td th:if="${i == 0 &amp;&amp; !match.scored}" th:rowspan="${match.redAlliance.teams.size()}"></td>
-                        <td th:text="${match.redAlliance.teams[i].team.number}"></td>
-                        <td th:text="${match.blueAlliance.teams[i].team.number}"></td>
+                <tr th:each="ta, iterStat : ${teams.get(division)}">
+                        <td th:text="${ta.team.number}"></td>
+                        <td th:text="${ta.team.name}"></td>
+                        <td th:text="${ta.team.school}"></td>
+                        <td th:text="${ta.team.city}"></td>
+                        <td th:text="${ta.team.state}"></td>
+                        <td th:text="${ta.team.country}"></td>
                 </tr>
-                </th:block>
                 </tbody>
         </table>
         </div>

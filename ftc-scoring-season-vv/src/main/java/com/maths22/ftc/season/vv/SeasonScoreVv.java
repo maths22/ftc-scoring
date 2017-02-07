@@ -170,13 +170,20 @@ public class SeasonScoreVv extends Score {
         return score;
     }
 
+    public int computeAutoBonusScore() {
+        return 0;
+    }
+
     @SuppressWarnings("PointlessArithmeticExpression")
     public int computeDriverScore() {
         int score = 0;
         score += 10 * this.driverBeacons;
-        score += this.driverCapPosition.getDriverScore();
         score += 5 * this.driverCenterParticles;
         score += 1 * this.driverCornerParticles;
         return score;
+    }
+
+    public int computeEndgameScore() {
+        return this.driverCapPosition.getDriverScore();
     }
 }

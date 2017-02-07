@@ -10,6 +10,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Component;
 
 import java.util.*;
+import java.util.function.BinaryOperator;
 import java.util.stream.Collector;
 import java.util.stream.Collectors;
 
@@ -22,6 +23,20 @@ public class RankingsCalculator {
 
     @Autowired
     MatchRepository matchRepository;
+
+    public List<Ranking> calculateRankings(Division division) {
+        Map<Team, List<Ranking>> rankings = getRankingsForDivision(division);
+        List<Ranking> ret = new ArrayList<>();
+        for(Team team : rankings.keySet()) {
+            List<Ranking> teamRankings = rankings.get(team);
+            Ranking teamRanking;
+            teamRanking = teamRankings.stream()
+                    .reduce(new Ranking(team), this::mergeRankings);
+            ret.add(teamRanking);
+        }
+        ret.sort(Collections.reverseOrder());
+        return ret;
+    }
 
     //TODO this limit approach is actually not what the real scoring system does
     public List<Ranking> calculateRankings(Collection<Team> teams, Collection<Division> divisions, int maxMatchCount) {
@@ -44,17 +59,19 @@ public class RankingsCalculator {
             teamRanking = teamRankings.stream()
                     .sorted(Collections.reverseOrder())
                     .limit(maxMatchCount)
-                    .reduce(new Ranking(team, new ArrayList<>(), 0, 0),
-                        (r1, r2) -> {
-                            List<Integer> matchScores = new ArrayList<>();
-                            matchScores.addAll(r1.getMatchScores());
-                            matchScores.addAll(r2.getMatchScores());
-                            return new Ranking(r1.getTeam(), matchScores, r1.getQp() + r2.getQp(), r1.getRp() + r2.getRp());
-                        });
+                    .reduce(new Ranking(team), this::mergeRankings);
             ret.add(teamRanking);
         }
         ret.sort(Collections.reverseOrder());
         return ret;
+    }
+
+
+    private Ranking mergeRankings(Ranking r1, Ranking r2) {
+        List<Integer> matchScores = new ArrayList<>();
+        matchScores.addAll(r1.getMatchScores());
+        matchScores.addAll(r2.getMatchScores());
+        return new Ranking(r1.getTeam(), matchScores, r1.getQp() + r2.getQp(), r1.getRp() + r2.getRp());
     }
 
     private Map<Team, List<Ranking>> getRankingsForDivision(Division division) {

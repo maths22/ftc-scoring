@@ -70,18 +70,29 @@ public abstract class Score {
 
     public int computeFinalScore(Score other) {
         return computeTotalScore()
-                + 40 * other.majorPenalties
-                + 10 * other.minorPenalties;
+                + other.computePenaltyScore();
     }
 
 //    @JsonProperty("totalScore")
     public int computeTotalScore() {
-        return computeAutoScore() + computeDriverScore();
+        return computeAutoScore() + computeAutoBonusScore() + computeDriverScore() + computeEndgameScore();
     }
 
     @JsonProperty("autoScore")
     public abstract int computeAutoScore();
 
+    @JsonProperty("autoBonusScore")
+    public abstract int computeAutoBonusScore();
+
     @JsonProperty("driverScore")
     public abstract int computeDriverScore();
+
+    @JsonProperty("endgameScore")
+    public abstract int computeEndgameScore();
+
+    @JsonProperty("penaltyScore")
+    public int computePenaltyScore() {
+        return 40 * this.majorPenalties
+             + 10 * this.minorPenalties;
+    }
 }
