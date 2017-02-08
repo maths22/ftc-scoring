@@ -1,6 +1,8 @@
 package com.maths22.ftc;
 
 import com.maths22.ftc.ui.ApplicationController;
+import com.maths22.ftc.ui.ApplicationPreloader;
+import com.sun.javafx.application.LauncherImpl;
 import javafx.application.Application;
 import javafx.scene.Parent;
 import javafx.scene.Scene;
@@ -15,18 +17,21 @@ import org.springframework.context.ConfigurableApplicationContext;
 @SpringBootApplication
 public class ScoringUploader extends Application {
     private static String[] args;
+    private ConfigurableApplicationContext context;
 
     public static void main(String[] args) {
         ScoringUploader.args = args;
-        launch(args);
+        LauncherImpl.launchApplication(ScoringUploader.class, ApplicationPreloader.class, args);
     }
+
+    public void init() {
+        // Bootstrap Spring context here.
+        context = SpringApplication.run(ScoringUploader.class, args);
+    }
+
 
     @Override
     public void start(final Stage primaryStage) {
-
-        // Bootstrap Spring context here.
-        ConfigurableApplicationContext context = SpringApplication.run(ScoringUploader.class, args);
-
         // Create a Scene
         ApplicationController mainPaneController = context.getBean(ApplicationController.class);
         Scene scene = new Scene((Parent) mainPaneController.getRoot());

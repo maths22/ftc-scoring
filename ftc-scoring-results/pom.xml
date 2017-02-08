@@ -21,7 +21,7 @@
         <dependency>
             <groupId>com.maths22.ftc</groupId>
             <artifactId>ftc-scoring-data</artifactId>
-            <version>0.0.1-SNAPSHOT</version>
+            <version>${project.version}</version>
         </dependency>
 
         <dependency>
@@ -42,7 +42,7 @@
         <dependency>
             <groupId>com.maths22.ftc</groupId>
             <artifactId>ftc-scoring-season-vv</artifactId>
-            <version>0.0.1-SNAPSHOT</version>
+            <version>${project.version}</version>
             <scope>runtime</scope>
         </dependency>
 
