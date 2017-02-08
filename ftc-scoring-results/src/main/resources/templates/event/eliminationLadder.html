@@ -1,0 +1,49 @@
+<!DOCTYPE html>
+<html lang="en" layout:decorate="~{layout}">
+<head>
+  <title>Rankings</title>
+</head>
+<body>
+<section layout:fragment="content">
+  <div th:each="division, iterStat : ${divisions}">
+    <h3 th:inline="text">
+      [[${division.name}]]
+      <br/>
+      Rankings
+    </h3>
+
+
+    <div class="blockContainer container"th:with="round=${eliminations.get(division)}">
+      <div class="finalResult" th:classAppend="${round.get().result.name() == 'RED_WON' ? 'redAlliance' : (round.get().result.name() == 'BLUE_WON' ? 'blueAlliance' : '')}">
+        <span th:replace="this :: displayAlliance(${round.get().getWinningAlliance()})"></span>
+      </div>
+      <div th:replace="this :: presentRound(${round})"></div>
+    </div>
+  </div>
+</section>
+
+<div class="eliminationLadder" th:fragment="presentRound(round)">
+  <th:block th:if="${round.isPresent()}">
+    <div class="eliminationRound col-md-12">
+      <span class="roundName" th:text="${round.get().displayName}"></span>
+      <div class="redAlliance" th:include="this :: displayAlliance(${round.get().redAlliance})"></div>
+      <div class="blueAlliance" th:include="this :: displayAlliance(${round.get().blueAlliance})"></div>
+    </div>
+
+    <div class="blockContainer leftBlockContainer col-md-6 col-xs-12" th:include="this :: presentRound(${round.get().redRound})"></div>
+
+    <div class="blockContainer rightBlockContainer col-md-6 col-xs-12" th:include="this :: presentRound(${round.get().blueRound})"></div>
+  </th:block>
+</div>
+
+<th:block th:fragment="displayAlliance(alliance)">
+  <th:block th:if="${alliance.isPresent()}">
+    Alliance [[${alliance.get().seed}]]: <br/>
+    <th:block th:each="ta, iterStat : ${alliance.get().teams}">
+      [[${ta.team.number}]][[${iterStat.last ? "" : ","}]]
+    </th:block>
+  </th:block>
+  &nbsp;
+</th:block>
+</body>
+</html>

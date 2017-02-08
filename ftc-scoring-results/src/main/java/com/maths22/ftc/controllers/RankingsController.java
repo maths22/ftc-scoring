@@ -1,5 +1,7 @@
 package com.maths22.ftc.controllers;
 
+import com.maths22.ftc.elimination.EliminationCalculator;
+import com.maths22.ftc.elimination.EliminationRound;
 import com.maths22.ftc.entities.Division;
 import com.maths22.ftc.entities.Event;
 import com.maths22.ftc.entities.Team;
@@ -36,7 +38,7 @@ public class RankingsController {
     private RankingsCalculator rankingsCalculator;
 
     @Autowired
-    private TeamEventAssignmentRepository teamEventAssignmentRepository;
+    private EliminationCalculator eliminationCalculator;
 
     @RequestMapping("/{eventKey}/rankings")
     public String rankingsByEvent(@PathVariable String eventKey, Model model) {
@@ -55,7 +57,29 @@ public class RankingsController {
         model.addAttribute("divisions", divisions);
         model.addAttribute("rankings", rankings);
 
+        model.addAttribute("isRankings", true);
         return "event/rankings";
+    }
+
+    @RequestMapping("/{eventKey}/eliminationLadder")
+    public String eliminationLadderByEvent(@PathVariable String eventKey, Model model) {
+        Optional<Event> event = eventRepository.findByKey(eventKey);
+
+        if(!event.isPresent()) {
+            throw new ResourceNotFoundException("Invalid eventKey " + eventKey);
+        }
+
+        Collection<Division> divisions = divisionRepository.getByEventId(event.get().getId());
+
+        Map<Division, Optional<EliminationRound>> eliminations = new HashMap<>();
+        for(Division div : divisions) {
+            eliminations.put(div, eliminationCalculator.calculateEliminationRounds(div));
+        }
+        model.addAttribute("divisions", divisions);
+        model.addAttribute("eliminations", eliminations);
+
+        model.addAttribute("isEliminationLadder", true);
+        return "event/eliminationLadder";
     }
 
     @ResponseStatus(value = HttpStatus.NOT_FOUND)

@@ -42,6 +42,7 @@ public class MatchResultsController {
 
         model.addAttribute("divisions", divisions);
 
+        model.addAttribute("isResults", true);
         return "matches/results";
     }
 
@@ -58,6 +59,7 @@ public class MatchResultsController {
 
         model.addAttribute("divisions", divisions);
 
+        model.addAttribute("isResultsDetails", true);
         return "matches/resultsDetails";
     }
 

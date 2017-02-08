@@ -1,55 +1,40 @@
 <!DOCTYPE html>
-<html lang="en">
+<html lang="en" layout:decorate="~{layout}">
 <head>
-        <meta charset="utf-8" />
-        <meta http-equiv="X-UA-Compatible" content="IE=edge" />
-        <meta name="viewport" content="width=device-width, initial-scale=1" />
-        <!-- The above 3 meta tags *must* come first in the head; any other head content must come *after* these tags -->
-        <title>Match Results</title>
-
-        <!-- Bootstrap -->
-        <link th:href="@{/css/bootstrap.min.css}" rel="stylesheet" />
-        <link th:href="@{/css/bootstrap-datepicker3.min.css}" rel="stylesheet" />
-
-        <link th:href="@{/css/style.css}" rel="stylesheet" />
-
-        <!-- HTML5 shim and Respond.js for IE8 support of HTML5 elements and media queries -->
-        <!-- WARNING: Respond.js doesn't work if you view the page via file:// -->
-        <!--[if lt IE 9]>
-        <script src="https://oss.maxcdn.com/html5shiv/3.7.3/html5shiv.min.js"></script>
-        <script src="https://oss.maxcdn.com/respond/1.4.2/respond.min.js"></script>
-        <![endif]-->
+  <title>Team Information</title>
 </head>
 <body>
-<div class="container">
-        <div th:replace="fragments/header :: header">
-        </div>
-
-        <div th:each="division, iterStat : ${divisions}">
-        <h3 th:text="${division.name}"></h3>
-        <table class="table matchResults">
-                <thead>
-                <tr>
-                        <th>Team #</th>
-                        <th>Name</th>
-                        <th>School</th>
-                        <th>City</th>
-                        <th>State</th>
-                        <th>Country</th>
-                </tr>
-                </thead>
-                <tbody>
-                <tr th:each="ta, iterStat : ${teams.get(division)}">
-                        <td th:text="${ta.team.number}"></td>
-                        <td th:text="${ta.team.name}"></td>
-                        <td th:text="${ta.team.school}"></td>
-                        <td th:text="${ta.team.city}"></td>
-                        <td th:text="${ta.team.state}"></td>
-                        <td th:text="${ta.team.country}"></td>
-                </tr>
-                </tbody>
-        </table>
-        </div>
-</div>
+<section layout:fragment="content">
+  <div th:each="division, iterStat : ${divisions}">
+    <h3 th:inline="text">
+      [[${division.name}]]
+      <br/>
+      Team Information
+    </h3>
+    <div class="table-responsive">
+      <table class="table table-condensed matchResults">
+        <thead>
+        <tr>
+          <th>Team #</th>
+          <th>Name</th>
+          <th>School</th>
+          <th>City</th>
+          <th>State</th>
+          <th>Country</th>
+        </tr>
+        </thead>
+        <tbody>
+        <tr th:each="ta, iterStat : ${teams.get(division)}">
+          <td th:text="${ta.team.number}"></td>
+          <td th:text="${ta.team.name}"></td>
+          <td th:text="${ta.team.school}"></td>
+          <td th:text="${ta.team.city}"></td>
+          <td th:text="${ta.team.state}"></td>
+          <td th:text="${ta.team.country}"></td>
+        </tr>
+      </table>
+    </div>
+  </div>
+</section>
 </body>
 </html>

@@ -52,6 +52,7 @@ public class TeamListController {
         model.addAttribute("divisions", divisions);
         model.addAttribute("teams", teams);
 
+        model.addAttribute("isTeamList", true);
         return "event/teamList";
     }
 

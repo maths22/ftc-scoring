@@ -12,6 +12,11 @@
 
     <artifactId>ftc-scoring-results</artifactId>
 
+    <properties>
+        <thymeleaf.version>3.0.3.RELEASE</thymeleaf.version>
+        <thymeleaf-layout-dialect.version>2.1.2</thymeleaf-layout-dialect.version>
+    </properties>
+
     <dependencies>
         <dependency>
             <groupId>com.maths22.ftc</groupId>

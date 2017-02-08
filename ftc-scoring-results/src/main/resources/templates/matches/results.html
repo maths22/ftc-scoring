@@ -1,54 +1,44 @@
 <!DOCTYPE html>
-<html lang="en">
+<html lang="en" layout:decorate="~{layout}">
 <head>
-        <meta charset="utf-8" />
-        <meta http-equiv="X-UA-Compatible" content="IE=edge" />
-        <meta name="viewport" content="width=device-width, initial-scale=1" />
-        <!-- The above 3 meta tags *must* come first in the head; any other head content must come *after* these tags -->
-        <title>Match Results</title>
-
-        <!-- Bootstrap -->
-        <link th:href="@{/css/bootstrap.min.css}" rel="stylesheet" />
-        <link th:href="@{/css/bootstrap-datepicker3.min.css}" rel="stylesheet" />
-
-        <link th:href="@{/css/style.css}" rel="stylesheet" />
-
-        <!-- HTML5 shim and Respond.js for IE8 support of HTML5 elements and media queries -->
-        <!-- WARNING: Respond.js doesn't work if you view the page via file:// -->
-        <!--[if lt IE 9]>
-        <script src="https://oss.maxcdn.com/html5shiv/3.7.3/html5shiv.min.js"></script>
-        <script src="https://oss.maxcdn.com/respond/1.4.2/respond.min.js"></script>
-        <![endif]-->
+  <title>Match Results</title>
 </head>
 <body>
-<div class="container">
-        <div th:replace="fragments/header :: header">
-        </div>
-
-        <div th:each="division, iterStat : ${divisions}">
-        <h3 th:text="${division.name}"></h3>
-        <table class="table matchResults">
-                <thead>
-                <tr>
-                        <th>Match</th>
-                        <th>Result</th>
-                        <th>Red</th>
-                        <th>Blue</th>
-                </tr>
-                </thead>
-                <tbody>
-                <th:block th:each="match, iterStat : ${division.matches}">
-                <tr th:each="i : ${#numbers.sequence( 0, match.redAlliance.teams.size() - 1)}">
-                        <td th:if="${i == 0}" th:rowspan="${match.redAlliance.teams.size()}" th:text="${match.numberString()}"></td>
-                        <td th:if="${i == 0 &amp;&amp; match.scored}" th:rowspan="${match.redAlliance.teams.size()}" th:classappend="${&quot;matchResult-&quot; + match.computeWinningAlliance()}" th:text="${match.computeRedFinalScore() + '-' + match.computeBlueFinalScore() + ' ' + match.computeWinningAlliance()}"></td>
-                        <td th:if="${i == 0 &amp;&amp; !match.scored}" th:rowspan="${match.redAlliance.teams.size()}"></td>
-                        <td th:text="${match.redAlliance.teams[i].team.number}"></td>
-                        <td th:text="${match.blueAlliance.teams[i].team.number}"></td>
-                </tr>
-                </th:block>
-                </tbody>
-        </table>
-        </div>
-</div>
+<section layout:fragment="content">
+  <div th:each="division, iterStat : ${divisions}">
+    <h3 th:inline="text">
+      [[${division.name}]]
+      <br/>
+      Match Results
+    </h3>
+    <div class="table-responsive">
+      <table class="table table-condensed matchResults">
+        <thead>
+        <tr>
+          <th>Match</th>
+          <th>Result</th>
+          <th>Red</th>
+          <th>Blue</th>
+        </tr>
+        </thead>
+        <tbody>
+        <th:block th:each="match, iterStat : ${division.matches}">
+          <tr th:each="i : ${#numbers.sequence( 0, match.redAlliance.teams.size() - 1)}">
+            <td th:if="${i == 0}" th:rowspan="${match.redAlliance.teams.size()}"
+                th:text="${match.numberString()}"></td>
+            <td th:if="${i == 0 &amp;&amp; match.scored}" th:rowspan="${match.redAlliance.teams.size()}"
+                th:classappend="${&quot;matchResult-&quot; + match.computeWinningAlliance()}"
+                th:text="${match.computeRedFinalScore() + '-' + match.computeBlueFinalScore() + ' ' + match.computeWinningAlliance()}"></td>
+            <td th:if="${i == 0 &amp;&amp; !match.scored}"
+                th:rowspan="${match.redAlliance.teams.size()}"></td>
+            <td th:text="${match.redAlliance.teams[i].team.number}"></td>
+            <td th:text="${match.blueAlliance.teams[i].team.number}"></td>
+          </tr>
+        </th:block>
+        </tbody>
+      </table>
+    </div>
+  </div>
+</section>
 </body>
 </html>

@@ -8,19 +8,52 @@
     /*TODO: color ties?*/
 }
 
-.matchResults {
+.matchResults tbody>tr>td {
+    vertical-align: middle;
     text-align: center;
 }
 
-.matchResults tbody>tr>td {
+.matchResults thead>tr>th {
     vertical-align: middle;
+    text-align: center;
+}
+
+.eliminationRound {
+    color: white;
+    text-align: center;
+    padding-bottom: 15px;
+}
+
+.blockContainer {
+    display: inline-block;
+}
+
+.finalResult {
+    color: white;
+    text-align: center;
+    padding: 5px;
+}
+
+.finalResult.blueAlliance {
+    background: #0000FF;
+}
+.finalResult.redAlliance {
+    background: #FF0000;
+    padding: 5px;
+}
+
+.eliminationRound .blueAlliance {
+    background: #0000FF;
+    padding: 5px;
+}
+.eliminationRound .redAlliance {
+    background: #FF0000;
+    padding: 5px;
+}
+.eliminationRound .roundName {
+    color: black;
 }
 
 body {
     padding-top: 70px;
-}
-
-td, th {
-    text-align: center;
-
 }

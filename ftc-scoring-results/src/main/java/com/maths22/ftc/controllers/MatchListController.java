@@ -46,6 +46,7 @@ public class MatchListController {
         model.addAttribute("divisions", divisions);
         model.addAttribute("matches", matches);
 
+        model.addAttribute("isMatchList", true);
         return "event/matchList";
     }
 
