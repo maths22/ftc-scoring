@@ -81,5 +81,5 @@ hs_err_pid*
 #Dev database:
 /db/
 
-#TODO separate out DB config so the other properties can be shared
-application.properties
+application-dev.properties
+application-prod.properties
