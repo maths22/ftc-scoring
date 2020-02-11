@@ -36,7 +36,7 @@
         <repository>
             <id>SymmetricDS</id>
             <name>SymmetricDS</name>
-            <url>http://maven.jumpmind.com/repo/</url>
+            <url>https://maven.jumpmind.com/repo/</url>
             <layout>default</layout>
         </repository>
     </repositories>
